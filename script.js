@@ -1,8 +1,13 @@
 const display = document.querySelector('.display');
 const numButtons = document.querySelectorAll('.num-btn');
-const opButtons = document.querySelectorAll('op-btn');
+const opButtons = document.querySelectorAll('.op-btn');
+const clearButton = document.querySelector('.clear-btn');
+const equalsButton = document.querySelector('.equals-btn');
 
-let displayValue = ""
+let displayValue = "";
+let firstNumberValue = "";
+let operatorValue = "";
+let secondNumberValue = "";
 
 function add(a, b) {
     return a + b;
@@ -33,11 +38,32 @@ function operate(operator, num1, num2) {
     }
 }
 
-numButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-        displayValue += button.textContent
+function clear() {
+    displayValue = ""
+    display.textContent = displayValue;
+}
+
+
+numButtons.forEach((numButton) => {
+    numButton.addEventListener('click', () => {
+        displayValue += numButton.textContent
         display.textContent = displayValue;
     });
 });
+
+opButtons.forEach((opButton) => {
+    opButton.addEventListener('click', () => {
+        firstNumberValue = displayValue;
+        operatorValue = opButton.id;
+        clear();
+    });
+});
+
+equalsButton.addEventListener('click', () => {
+    display.textContent = operate(operatorValue, +firstNumberValue, +displayValue);
+});
+
+
+clearButton.addEventListener('click', clear);
 
 
