@@ -2,9 +2,34 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 500px;
 }
 
 .calculator {
     display: flex;
+    flex-wrap: wrap;
+    height: 100px;
+    width: 200px;
+}
+
+.display {
+    width: 200px;
+    border: 1px solid black;
+    text-align: right;
+    padding: 25px 10px;
+}
+
+.btn {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+}
+
+.ops-btn {
+    background-color: #b9b8b8
+}
+
+.equals-btn {
+    background-color: #6f6fff;
 }
 
