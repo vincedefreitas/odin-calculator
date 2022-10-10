@@ -1,3 +1,9 @@
+const display = document.querySelector('.display');
+const numButtons = document.querySelectorAll('.num-btn');
+const opButtons = document.querySelectorAll('op-btn');
+
+let displayValue = ""
+
 function add(a, b) {
     return a + b;
 }
@@ -27,6 +33,11 @@ function operate(operator, num1, num2) {
     }
 }
 
-
+numButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        displayValue += button.textContent
+        display.textContent = displayValue;
+    });
+});
 
 
