@@ -3,6 +3,7 @@ const numButtons = document.querySelectorAll('.num-btn');
 const opButtons = document.querySelectorAll('.op-btn');
 const clearButton = document.querySelector('.clear-btn');
 const equalsButton = document.querySelector('.equals-btn');
+const backspaceButton = document.querySelector('.backspace');
 
 let displayValue = "";
 let firstNumberValue = "";
@@ -39,7 +40,9 @@ function operate(operator, num1, num2) {
 }
 
 function clear() {
-    displayValue = ""
+    displayValue = "";
+    firstNumberValue = "";
+    operatorValue = "";
     display.textContent = displayValue;
 }
 
@@ -53,14 +56,34 @@ numButtons.forEach((numButton) => {
 
 opButtons.forEach((opButton) => {
     opButton.addEventListener('click', () => {
-        firstNumberValue = displayValue;
-        operatorValue = opButton.id;
-        clear();
+        if (firstNumberValue && displayValue) {
+            display.textContent = operate(operatorValue, +firstNumberValue, +displayValue);
+            displayValue = display.textContent;
+            firstNumberValue = displayValue;
+            operatorValue = opButton.id;
+            displayValue = "";
+        } else {
+            firstNumberValue = displayValue;
+            operatorValue = opButton.id;
+            displayValue = "";
+        }
     });
 });
 
 equalsButton.addEventListener('click', () => {
-    display.textContent = operate(operatorValue, +firstNumberValue, +displayValue);
+    if (!firstNumberValue) {
+        display.textContent = displayValue;
+    } else if (+displayValue === 0 && operatorValue === "/") {
+        display.textContent = "Really?"
+    } else {
+        display.textContent = operate(operatorValue, +firstNumberValue, +displayValue);
+    }
+    
+});
+
+backspaceButton.addEventListener('click', () => {
+    displayValue = displayValue.slice(0, -1);
+    display.textContent = displayValue;
 });
 
 
